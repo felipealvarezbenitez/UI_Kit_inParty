@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
 
-const cards = <Map<String,dynamic>>[
-  { 'elevation': 0.0, 'label': 'Elevation 0' },
-  { 'elevation': 1.0, 'label': 'Elevation 1' },
-  { 'elevation': 2.0, 'label': 'Elevation 2' },
-  { 'elevation': 3.0, 'label': 'Elevation 3' },
-  { 'elevation': 4.0, 'label': 'Elevation 4' },
-  { 'elevation': 5.0, 'label': 'Elevation 5' },
-];
-
-
-
-
-
 class CardsScreen extends StatelessWidget {
 
   static const String name = 'cards_screen';
@@ -46,6 +33,9 @@ class _CardsView extends StatelessWidget {
               spacing: 10,
               alignment: WrapAlignment.center,
               children: [
+
+                CustomCard(text: "Texto aqui", cardShadowColor: Colors.red.shade50),
+
                 SizedBox(
                   width: 163,
                   height: 165,
@@ -100,3 +90,47 @@ class _CardsView extends StatelessWidget {
   }
 }
 
+class CustomCard extends StatelessWidget {
+
+  final String text;
+  final double width;
+  final double height;
+  final Color cardColor;
+  final Color cardShadowColor;
+
+  const CustomCard({
+    super.key,
+    required this.text,
+    this.width = 163,
+    this.height = 165,
+    this.cardColor = Colors.white,
+    required this.cardShadowColor,
+  });
+  
+  @override
+  Widget build(BuildContext context) {
+
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(8.0),
+            boxShadow: [
+              BoxShadow(
+                color: cardShadowColor,
+                blurRadius: 5.0,
+                spreadRadius: 0.5,
+                offset: const Offset(0.7, 0.5)
+              )
+            ]
+          ),
+          child: Text(text),
+        ),
+      ),
+    );
+  }
+}

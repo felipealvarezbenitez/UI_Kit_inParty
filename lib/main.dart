@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:inparty_components/presentation/screen/cards/cards_screen.dart';
 //import 'package:inparty_components/components/filter.dart';
 // import 'package:inparty_components/presentation/screen/buttons/buttons_screen.dart';
 //import 'package:inparty_components/presentation/screen/cards/cards_screen.dart';
 //import 'package:inparty_components/presentation/screen/checkboxes_toggles/checkboxes_toggles.dart';
-import 'package:inparty_components/presentation/screen/inputs/input_component.dart';
+//import 'package:inparty_components/presentation/screen/inputs/input_component.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Material App Bar'),
         ),
-        body: const SearchInputComponent()),
+        body: const CardsScreen()),
         // Container(
       //     color: Colors.green,
       //     child: const Padding(
