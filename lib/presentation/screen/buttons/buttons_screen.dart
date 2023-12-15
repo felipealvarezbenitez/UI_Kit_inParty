@@ -45,7 +45,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 151, 204, 69)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
+                        borderRadius: BorderRadius.circular(15)
                         )
                       )
                     ),
@@ -67,7 +67,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(200, 178, 199, 146)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
+                        borderRadius: BorderRadius.circular(15)
                         )
                       )
                     ),
@@ -104,7 +104,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 219, 239, 190)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                       side: const MaterialStatePropertyAll(
@@ -131,7 +131,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(100, 255, 255, 255)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                       side: const MaterialStatePropertyAll(
@@ -179,7 +179,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(200, 242, 244, 252)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                     ),
@@ -197,7 +197,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(200, 254, 241, 233)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                     ),
@@ -215,7 +215,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(200, 239, 252, 238)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                     ),
@@ -233,7 +233,7 @@ class _ButtonsView extends StatelessWidget {
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(200, 219, 239, 190)),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(15)
                         )
                       ),
                     ),
@@ -254,6 +254,7 @@ class _ButtonsView extends StatelessWidget {
 class CustomElevatedButton extends StatelessWidget {
 
   final String text;
+  final Function? onPressed;
   final double width;
   final double height;
   final MaterialStateProperty<Color?> backgroundColor;
@@ -264,8 +265,10 @@ class CustomElevatedButton extends StatelessWidget {
     required this.text,
     this.width = 143,
     this.height = 50,
-    required this.backgroundColor,
-    this.textColor = const Color.fromARGB(255, 255, 255, 255)
+    this.backgroundColor = const MaterialStatePropertyAll(Color.fromARGB(255, 151, 204, 69)),
+
+    this.textColor = const Color.fromARGB(255, 255, 255, 255),
+    this.onPressed,
   });
 
   @override
@@ -275,12 +278,12 @@ class CustomElevatedButton extends StatelessWidget {
       width: width,
       height: height,
       child:  ElevatedButton(
-        onPressed: null,
+        onPressed: onPressed as void Function()?,
         style: ButtonStyle(
           backgroundColor: backgroundColor,
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
+            borderRadius: BorderRadius.circular(15)
             )
           )
         ),
@@ -300,18 +303,20 @@ class CustomOutlinedButton extends StatelessWidget {
   final String text;
   final double width;
   final double height;
-  final MaterialStateProperty<Color?> backgroundColor;
+  final MaterialStateProperty<Color?>? backgroundColor;
   final Color borderSideColor;
   final Color textColor;
+  final Function? onPressed;
 
   const CustomOutlinedButton({
     super.key,
     required this.text,
     this.width = 143,
     this.height = 50,
-    required this.backgroundColor,
-    this.borderSideColor = const  Color.fromARGB(100, 136, 177, 73),
-    this.textColor = const Color.fromARGB(255, 131, 178, 59)
+    this.backgroundColor,
+    this.borderSideColor = const Color.fromARGB(255, 131, 178, 59),
+    this.textColor = const Color.fromARGB(255, 131, 178, 59),
+    this.onPressed,
   });
 
   @override
@@ -321,19 +326,38 @@ class CustomOutlinedButton extends StatelessWidget {
       width: width,
       height: height,
       child: OutlinedButton(
-        onPressed: (){}, 
+        onPressed: onPressed as void Function()?,
         style: ButtonStyle(
-          backgroundColor: backgroundColor,
+          backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.background),
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: BorderRadius.circular(15)
             )
           ),
           side: MaterialStatePropertyAll(
             BorderSide(
+              width: 1.5,
               color: borderSideColor,
             )
-          )
+          ),
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.hovered) || 
+                  (states.contains(MaterialState.focused) ||
+                  (states.contains(MaterialState.pressed))))
+                return Color.fromARGB(255, 151, 204, 69);
+              return null; 
+            },
+          ),
+          foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.hovered) ||
+                  states.contains(MaterialState.focused) ||
+                  states.contains(MaterialState.pressed))
+                return Colors.white;
+              return textColor; 
+            },
+          ),
         ),
         child: Text(
           text,
@@ -347,11 +371,68 @@ class CustomOutlinedButton extends StatelessWidget {
   }
 }
 
-class CustomIconButton extends StatelessWidget {
-
-  final Widget icon;
+class CustomOutlinedButtonWithIcon extends StatelessWidget {
+  final String text;
   final double width;
   final double height;
+  final MaterialStateProperty<Color?> backgroundColor;
+  final Color borderSideColor;
+  final Color textColor;
+  final Function? onPressed;
+  final Icon icon;
+
+  const CustomOutlinedButtonWithIcon({
+    Key? key,
+    required this.text,
+    required this.icon,
+    this.width = 143,
+    this.height = 50,
+    this.backgroundColor = const MaterialStatePropertyAll(Colors.white),
+    this.borderSideColor = const Color.fromARGB(255, 131, 178, 59),
+    this.textColor = const Color.fromARGB(255, 131, 178, 59),
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: OutlinedButton(
+        onPressed: onPressed as void Function()?,
+        style: ButtonStyle(
+          backgroundColor:  MaterialStatePropertyAll(Theme.of(context).colorScheme.background),
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+          side: MaterialStatePropertyAll(
+            BorderSide(
+              width: 1.5,
+              color: borderSideColor,
+            ),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            Spacer(),
+            Text(text, style: TextStyle(color: textColor)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomIconButton extends StatelessWidget {
+
+  final Icon icon;
+  final double width;
+  final double height;
+  final Function? onPressed;
   final MaterialStateProperty<Color?> iconColor;
   final MaterialStateProperty<Color?> backgroundColor;
   
@@ -359,10 +440,11 @@ class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     super.key,
     required this.icon,
-    this.width = 75,
-    this.height = 75,
+    this.width = 50,
+    this.height = 50,
     required this.iconColor,
     required this.backgroundColor,
+    this.onPressed,
   });
 
   @override
@@ -371,14 +453,14 @@ class CustomIconButton extends StatelessWidget {
       width: width,
       height: height,
       child: IconButton(
-        onPressed: (){}, 
+        onPressed: onPressed as void Function()?,
         icon: icon,
         style: ButtonStyle(
           iconColor: iconColor,
           backgroundColor: backgroundColor,
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: BorderRadius.circular(15)
             )
           ),
         ),

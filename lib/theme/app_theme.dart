@@ -1,42 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:inparty_components/theme/colors_app.dart';
 
 Color primary = const Color.fromARGB(255, 131, 178, 59 );
 
-const colorList = <Color>[
-  
-  Colors.blue,
-  Colors.teal,
-  Colors.green,
-  Colors.red,
-  Colors.purple,
-  Colors.deepPurple,
-  Colors.orange,
-  Colors.pink,
-  Colors.pinkAccent,
-];
+ColorsApp colorsApp = ColorsApp(theme: "light");
+
+final ThemeData themelight = ThemeData(
+    colorScheme:  ColorScheme(
+        brightness: Brightness.light,
+        primary: colorsApp.primary1,
+        onPrimary: Colors.white,
+        secondary: Colors.greenAccent,
+        onSecondary: Colors.white,
+        error: Colors.redAccent,
+        onError: Colors.white,
+        background: colorsApp.blackBackgroundPrimary,
+        onBackground: Colors.white,
+        surface: colorsApp.backgroundSecondary,
+        onSurface: Colors.white),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          iconTheme:  IconThemeData(
+            color: Colors.black
+            ),
+        ),
+        inputDecorationTheme:  InputDecorationTheme(
+        border: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 20),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        fillColor: colorsApp.backgroundSecondary,
+        filled: true,
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+        )));
 
 
-
-class AppTheme {
-
-  final int selectedColor;
-  final bool isDarkmode;
-
-  AppTheme({
-    this.selectedColor = 0,
-    this.isDarkmode = false,
-  }): assert( selectedColor >= 0, 'Selected color must be greater then 0' ),  
-      assert( selectedColor < colorList.length, 
-        'Selected color must be less or equal than ${ colorList.length - 1 }');
-
-  ThemeData getTheme() => ThemeData(
-    useMaterial3: true,
-    brightness: isDarkmode ? Brightness.dark : Brightness.light,
-    colorSchemeSeed: colorList[ selectedColor ],
-    appBarTheme: 
-    AppBarTheme(
-      color: primary,
-      centerTitle: false),
-  );
-
-}
+final ThemeData themedark = ThemeData(
+    colorScheme:  ColorScheme(
+        brightness: Brightness.dark,
+        primary: colorsApp.primary1,
+        onPrimary: Colors.white,
+        secondary: Colors.greenAccent,
+        onSecondary: Colors.white,
+        error: Colors.redAccent,
+        onError: Colors.white,
+        background: colorsApp.backgroundPrimary,
+        onBackground: colorsApp.backgroundSecondary,
+        surface: colorsApp.blackBackgroundPrimary,
+        onSurface: colorsApp.blackBackgroundSecondary),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          iconTheme:  IconThemeData(
+            color: Colors.black
+            ),
+        ),
+        inputDecorationTheme:  InputDecorationTheme(
+        border: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 20),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        fillColor: colorsApp.backgroundSecondary,
+        filled: true,
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+        )));
