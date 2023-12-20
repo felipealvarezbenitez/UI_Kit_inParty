@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:inparty_components/components/calendar.dart';
 import 'package:inparty_components/components/filter.dart';
-import 'package:inparty_components/presentation/screen/buttons/buttons_screen.dart';
-import 'package:inparty_components/presentation/screen/cards/cards_screen.dart';
+import 'package:inparty_components/presentation/screen/buttons/buttons.dart';
+import 'package:inparty_components/presentation/screen/calendar/calendar.dart';
+import 'package:inparty_components/presentation/screen/calendar/calendar_material.dart';
+import 'package:inparty_components/presentation/screen/cards/cards.dart';
 import 'package:inparty_components/presentation/screen/checkboxes_toggles/checkboxes_toggles.dart';
 import 'package:inparty_components/presentation/screen/inputs/input_component.dart';
 import 'package:inparty_components/presentation/screen/inputs/search_input_component.dart';
@@ -19,10 +20,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: themelight,
       title: 'Material App',
-      theme: themedark,
-      darkTheme: themelight,
-      themeMode: ThemeMode.system,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Material App Bar'),
@@ -31,7 +30,9 @@ class MyApp extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
-              children:[
+              children: const [
+                CalendarExample()
+                /*
                 ParentWidgetSearch(),
                 ParentWidgetInput(),
                 ParentWidgetTextArea(),
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
                   ],
                 ),
                 ParentFilterOptions(),
+                */
                 ]
             ),
           ),

@@ -6,6 +6,14 @@ Color primary = const Color.fromARGB(255, 131, 178, 59 );
 ColorsApp colorsApp = ColorsApp(theme: "light");
 
 final ThemeData themelight = ThemeData(
+  datePickerTheme: DatePickerThemeData(
+       backgroundColor: colorsApp.primary2
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.black , // button text color
+      ),
+    ),
     colorScheme:  ColorScheme(
         brightness: Brightness.light,
         primary: colorsApp.primary1,
@@ -19,7 +27,7 @@ final ThemeData themelight = ThemeData(
         surface: colorsApp.backgroundSecondary,
         onSurface: Colors.white),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          
           iconTheme:  IconThemeData(
             color: Colors.black
             ),
